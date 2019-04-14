@@ -3,6 +3,7 @@
 
 autops是基于Python3开发的一款CMDB+IT审计堡垒机，支持web terminal和终端ssh。
 
+- 项目启动
 
 ```
 pip3 install -r requirements.txt
@@ -12,6 +13,7 @@ python3 manage.py createsuperuser
 python manage.py runserver
 ```
 
+- 客户端安装
 
 ```
 yum -y install dmidecode
