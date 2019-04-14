@@ -1,0 +1,7 @@
+django==1.11.1
+channels==2.1.7
+channels-redis==2.3.3
+docker==3.7.0       # <== cmdb客户端安装
+paramiko==2.4.1
+uwsgi==2.0.18
+pymysql==0.9.2

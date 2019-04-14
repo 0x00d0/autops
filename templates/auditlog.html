@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ops</title>
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="{% static "assets/bootstrap-3.3.4/css/bootstrap_noresponsive.css" %}">
+    <link rel="stylesheet" href="{% static "assets/fontawesome-4.3.0/css/font-awesome.css" %}">
+    <link rel="stylesheet" href="{% static "css/bk.css" %}">
+    <link href="{% static "css/main.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "assets/datatables-1.10.7/dataTables.bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "assets/fontawesome-4.3.0/css/font-awesome.min.css" %}">
+    <link rel="stylesheet" href="{% static "assets/bkDialog-1.0/css/ui-dialog.css" %}">
+    <link rel="stylesheet" href="{% static "asciinema/asciinema-player.css" %}">
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- 头部 -->
+        <header>
+            <div class="navbar navbar-black">
+                <div class="navbar-container">
+                    <div class="navbar-header pull-left">
+                        <a class="navbar-brand" href="#">
+                        <i class="fa fa-leaf"></i>
+                        ops
+                    </a>
+                    </div>
+
+                    <div class="navbar-header pull-right">
+                        <ul class="nav">
+                            <li class="user-info">
+                                <a href="#">
+                                <img class="img-rounded" src="{% static "img/avatar.png" %}">
+                                <span>{{ request.user }}</span>
+                            </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- 头部 -->
+
+        <!-- 侧边栏 -->
+        <div class="king-vertical-nav4">
+            <div class="sidebar-inner">
+                <ul class="navi">
+                    <li class="current">
+                        <a href="/index/">
+                        <i class="fa fa-gear"></i>首页
+                    </a>
+                    </li>
+                    <li class="has_submenu current open">
+                        <a href="javascript:;">
+                        <i class="fa fa-wrench"></i>资产管理
+                        <span class="pull-right"><i class="fa fa-angle-down"></i></span>
+                    </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a href="/hostmt/">主机管理<i class="fa fa-chevron-right pull-right"></i></a>
+                            </li>
+                            <li class="active">
+                                <a href="/auditlog/">日志审计<i class="fa fa-chevron-right pull-right"></i></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="king-main-container">
+            <div class="container-fluid">
+
+                <div class="king-block king-block-bordered">
+    <div class="king-block-header king-gray-light">
+        <h3 class="king-block-title">日志审计</h3>
+    </div>
+    <div class="king-block-content">
+      <table id="table2_demo4" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>堡垒机用户</th>
+            <th>登录主机</th>
+            <th>登录类型</th>
+            <th>来源IP</th>
+            <th>命令</th>
+            <th>回放</th>
+            <th>登录时间</th>
+            <th>退出时间</th>
+            <th>时长</th>
+          </tr>
+        </thead>
+        <tbody>
+
+            {% for logobj in logs %}
+                <tr>
+                   <td>{{ forloop.counter }}</td>
+                   <!-- <td>{{ logobj.id }}</td>-->
+                    <td>{{ logobj.user }}</td>
+                    <td>{{ logobj.host }}</td>
+                    <td>{{ logobj.login_type }}</td>
+                    <td>{{ logobj.remote_ip }}</td>
+                    <td>
+                    {% for ttylog in logobj.ttylog_set.all %}
+                        {{ ttylog.datetime }} {{ ttylog.cmd }} <br>
+                    {% endfor %}
+                    </td>
+                    <td>
+                        {% for recorderlog in logobj.recorderlog_set.all %}
+                        <button class="king-btn-small king-round king-success" value="{{ recorderlog.logpath }}" onclick="videotape('{{ recorderlog.logpath }}')">录像回放</button>
+                        {% endfor %}
+                    </td>
+                    <td>{{ logobj.start_time|date:"Y年n月d日 H:i:s:u"}}</td>
+                    <td>{{ logobj.end_time|date:"Y年n月d日 H:i:s:u" }}</td>
+                    <td>{{ logobj.hour_longtime}}</td>
+                 </tr>
+            {% empty %}
+                <tr>None</tr>
+            {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+    <script src="{% static "assets/jquery-1.10.2/jquery-1.10.2.min.js" %}"></script>
+    <!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+    <script src="{% static "assets/bootstrap-3.3.4/js/bootstrap.min.js" %}"></script>
+
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <script src="{% static "js/index.js" %}"></script>
+    <script src="{% static "assets/datatables-1.10.7/jquery.dataTables.js" %}" type="text/javascript"></script>
+    <script src="{% static "assets/datatables-1.10.7/dataTables.bootstrap.js" %}" type="text/javascript"></script>
+    <script src="{% static "assets/bkDialog-1.0/js/dialog.js" %}"></script>
+    <script src="{% static "asciinema/asciinema-player.js" %}"></script>
+
+
+    <script type="text/javascript">
+        var language = {
+        search: '搜索：',
+        lengthMenu: "每页显示 _MENU_ 记录",
+        zeroRecords: "没找到相应的数据！",
+        info: "分页 _PAGE_ / _PAGES_",
+        infoEmpty: "暂无数据！",
+        infoFiltered: "(从 _MAX_ 条数据中搜索)",
+        paginate: {
+            first: '首页',
+            last: '尾页',
+            previous: '上一页',
+            next: '下一页',
+        }
+        };
+
+        $('#table2_demo4').dataTable({
+            paging: true, //隐藏分页
+            ordering: true, //关闭排序
+            info: false, //隐藏左下角分页信息
+            searching: true, //关闭搜索
+            pageLength : 10, //每页显示几条数据
+            lengthMenu:[5,10,20], //每页显示选项
+            lengthChange: true, //不允许用户改变表格每页显示的记录数
+            language: language //汉化
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        function cmdplayback(logobj) {
+            console.log(typeof(logobj),logobj);
+            var logobj = JSON.parse(logobj);
+            console.log(typeof(logobj),logobj);
+            console.log(logobj['data']);
+            var cmd = dialog({
+                width:600,
+                height:600,
+                title:"命令审计",
+                content:'<div class="king-block-content">\
+                           <table id="table2_demo4" class="table table-bordered table-striped">\
+                              <tbody id="idtbody">\
+                              </tbody>\
+                           </table>\
+                         </div>',
+                fixed:true,
+                onshow:function (argumets) {
+                    var html = '';
+                    for(var ttylog in logobj['data'] ){
+                        console.log(ttylog);
+                        html += "<td>" + ttylog + "</td>"
+
+                    }
+                    $("#idtbody").append(html)
+                }
+
+            });
+            cmd.show();
+        }
+
+        function videotape(logpath) {
+            var video = dialog({
+                width:600,
+                height:180,
+                title: '录像回放',
+                content: '<div class="king-block-content" id="palyid">\
+                </div>',
+                fixed:true,
+                onshow: function (arguments) {
+                    var html = '';
+                    //var srcurl = 'src={{ MEDIA_URL }}' + logpath;
+                    var srcurl = 'src=/media/' + logpath;
+                    html += "<asciinema-player  " + srcurl + ">" + "</asciinema-player>";
+                    console.log(html);
+                    $("#palyid").append(html)
+                }
+            });
+            video.show();
+        }
+        
+    </script>
+
+</body>
+
+</html>

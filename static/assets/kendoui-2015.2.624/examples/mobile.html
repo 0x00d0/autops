@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kendo UI Mobile - Hybrid Framework</title>
+    <meta charset="utf-8">
+    <link href="../styles/kendo.mobile.flat.min.css" rel="stylesheet">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/kendo.all.min.js"></script>
+    <script src="content/shared/js/console.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        var NAV_JSON_URL = "content/mobile-nav.json";
+    </script>
+    <script src="content/shared/js/mobile-examples.js"></script>
+</head>
+<body id="examples">
+    <div data-role="view" data-title="Kendo UI" id="index" data-layout="" data-show="nullCurrentExample" data-init="initSearch">
+        <header data-role="header">
+            <div data-role="navbar" id="normal">
+                <span data-role="view-title"></span>
+            </div>
+        </header>
+
+        <ul data-role="listview" data-source="navDataSource" data-template="nav-template">
+            <script type="text/x-kendo-template" id="nav-template">
+                <a href="#: url #.html" style="#: data.new ? 'color: green' : '' #">#: text #</a>
+            </script>
+        </ul>
+    </div>
+
+    <div data-id="examples" data-role="layout" data-show="showDemoLayout" data-hide="removeView">
+        <header data-role="header">
+            <div data-role="navbar">
+                <a data-align="left" data-role="backbutton">Back</a>
+                <span data-role="view-title"></span>
+            </div>
+        </header>
+    </div>
+
+    <script>
+        window.app = new kendo.mobile.Application($(document.body), {
+            layout: "examples",
+            transition: "slide",
+            skin: "flat",
+            icon: {
+                "" : "content/mobile/AppIcon72x72.png",
+                "72x72" : "content/mobile/AppIcon72x72.png",
+                "76x76" : "content/mobile/AppIcon76x76.png",
+                "114x114" : "content/mobile/AppIcon72x72@2x.png",
+                "120x120" : "content/mobile/AppIcon76x76@2x.png",
+                "152x152" : "content/mobile/AppIcon76x76@2x.png"
+            }
+        });
+    </script>
+</body>
+</html>

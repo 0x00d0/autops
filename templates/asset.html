@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>主机管理</title>
+
+    <!-- Bootstrap css -->
+    <link rel="stylesheet" href="{% static "assets/bootstrap-3.3.4/css/bootstrap_noresponsive.css" %}">
+    <link rel="stylesheet" href="{% static "assets/fontawesome-4.3.0/css/font-awesome.css" %}">
+    <link rel="stylesheet" href="{% static "css/bk.css" %}">
+    <link href="{% static "css/main.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static "assets/datatables-1.10.7/dataTables.bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "assets/fontawesome-4.3.0/css/font-awesome.min.css" %}">
+    <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
+    <!--[if lt IE 9]>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/html5shiv.min.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/js/respond.min.js"></script>
+    <![endif]-->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/bkTopology-1.1/css/bkTopology.css"
+          rel="stylesheet">
+
+</head>
+
+<body>
+<div class="wrap">
+    <!-- 头部 -->
+    <header>
+        <div class="navbar navbar-black">
+            <div class="navbar-container">
+                <div class="navbar-header pull-left">
+                    <a class="navbar-brand" href="#">
+                        <i class="fa fa-leaf"></i>
+                        ops
+                    </a>
+                </div>
+
+                <div class="navbar-header pull-right">
+                    <ul class="nav">
+                        <li class="user-info">
+                            <a href="#">
+                                <img class="img-rounded" src="{% static "img/avatar.png" %}">
+                                <span>{{ request.user }}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- 头部 -->
+
+    <!-- 侧边栏 -->
+    <div class="king-vertical-nav4">
+        <div class="sidebar-inner">
+            <ul class="navi">
+                <li class="current">
+                    <a href="/index/">
+                        <i class="fa fa-gear"></i>首页
+                    </a>
+                </li>
+                <li class="has_submenu current open">
+                    <a href="javascript:;">
+                        <i class="fa fa-wrench"></i>资产管理
+                        <span class="pull-right"><i class="fa fa-angle-down"></i></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li class="active">
+                            <a href="/hostmt/">主机管理<i class="fa fa-chevron-right pull-right"></i></a>
+                        </li>
+                        <li>
+                            <a href="/auditlog/">日志审计<i class="fa fa-chevron-right pull-right"></i></a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="king-main-container">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ assets.host.name }}资产详情</h3>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>SSH管理地址:</td>
+                                <td>{{ assets.host.mgaddress }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-warning"></span>
+                                <i></i>
+                                <td>内网IP：</td>
+                                <td>{{ assets.host.lanip }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-danger"></span>
+                                <i></i>
+                                <td>外网IP：</td>
+                                <td>{{ assets.host.wanip }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-primary"></span>
+                                <i></i>
+                                <td>SSH端口：</td>
+                                <td>{{ assets.host.port }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-success"></span>
+                                <i></i>
+                                <td>idc：</td>
+                                <td>{{ assets.host.idc.name }}</td>
+                                <br>
+                                <td>区域：</td>
+                                <td>{{ assets.host.idc.region }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>逻辑CPU个数:</td>
+                                <td>{{ assets.host.cpu_count }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>物理CPU个数:</td>
+                                <td>{{ assets.host.cpu_core_count }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>内存：</td>
+                                <td>{{ assets.host.memory }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>磁盘：</td>
+                                <td>{{ assets.host.disk }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>网络类型：</td>
+                                <td>{{ assets.host.network }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>主机创建时间：</td>
+                                <td>{{ assets.host.create_time|date:"Y年n月d日 H:i:s:u" }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>信息更新时间：</td>
+                                <td>{{ assets.host.update_time|date:"Y年n月d日 H:i:s:u" }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>系统时间：</td>
+                                <td>{{ assets.host.systemtime }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>系统镜像：</td>
+                                <td>{{ assets.host.sys_images }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>发行版本：</td>
+                                <td>{{ assets.host.os_release }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>系统架构：</td>
+                                <td>{{ assets.host.architecture }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>Docker版本：</td>
+                                <td>{{ assets.host.docker_version }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>存储驱动：</td>
+                                <td>{{ assets.host.storage_driver }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>容器数量：</td>
+                                <td>{{ assets.host.containers_count }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>运行容器数量：</td>
+                                <td>{{ assets.host.containers_running }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>暂停运行容器数量：</td>
+                                <td>{{ assets.host.containers_paused }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>停止运行容器数量：</td>
+                                <td>{{ assets.host.containers_stopped }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>镜像数量：</td>
+                                <td>{{ assets.host.containers_images }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>资产环境：</td>
+                                <td>{{ assets.host.get_asset_env_display }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>资产所属项目：</td>
+                                <td>{{ assets.host.asset_project }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>sn：</td>
+                                <td>{{ assets.host.sn }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge"></span>
+                                <i></i>
+                                <td>备注：</td>
+                                <td>{{ assets.host.remarks }}</td>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+
+                        {% for container in assets.host.asset.all %}
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{{ container.container_name }}容器详情</h3>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>容器id:</td>
+                                <td>{{ container.container_id }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>容器创建时间:</td>
+                                <td>{{ container.created }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>容器启动时间:</td>
+                                <td>{{ container.startedat }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>容器状态:</td>
+                                <td>{{ container.status }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>容器镜像:</td>
+                                <td>{{ container.images }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>容器网络类型:</td>
+                                <td>{{ container.network }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>容器启动命令:</td>
+                                <td>{{ container.run }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>容器环境变量:</td>
+                                <td>{{ container.env }}</td>
+                            </li>
+
+                            {% for container_port in container.container_port.all %}
+                                <li class="list-group-item">
+                                    <span class="badge king-info"></span>
+                                    <i></i>
+                                    <td>映射本机端口:</td>
+                                    <td>{{ container_port.local_port }}</td>
+                                    <br>
+                                    <td>容器端口:</td>
+                                    <td>{{ container_port.container_port }}</td>
+                                </li>
+                            {% endfor %}
+                            {% for container_storage in container.container_storage.all %}
+                                <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>本地挂载目录:</td>
+                                <td>{{ container_storage.source }}</td>
+                                    <br>
+                                <td>容器目录:</td>
+                                <td>{{ container_storage.destination }}</td>
+                            </li>
+                            {% endfor %}
+                            {% for container_user in container.container_user.all %}
+                                <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>容器服务管理用户:</td>
+                                <td>{{ container_user.username }}</td>
+                                    <br>
+                                <td>容器服务管理密码:</td>
+                                <td>{{ container_user.password }}</td>
+                            </li>
+                            {% endfor %}
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>备注:</td>
+                                <td>{{ container.remarks }}</td>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+
+                        {% for assetrecord in assets.host.assetrecord_set.all %}
+                        <div class="panel-heading">
+                            <h3 class="panel-title">资产变更详情</h3>
+                        </div>
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>资产变更详情:</td>
+                                <td>{{ assetrecord.content }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>资产手动更新人:</td>
+                                <td>{{ assetrecord.creator }}</td>
+                            </li>
+                            <li class="list-group-item">
+                                <span class="badge king-info"></span>
+                                <i></i>
+                                <td>资产更新时间:</td>
+                                <td>{{ assetrecord.create_at|date:"Y年n月d日 H:i:s:u" }}</td>
+                            </li>
+                        </ul>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 如果要使用Bootstrap的js插件，必须先调入jQuery -->
+<script src="{% static "assets/jquery-1.10.2/jquery-1.10.2.min.js" %}"></script>
+<!-- 包括所有bootstrap的js插件或者可以根据需要使用的js插件调用　-->
+<script src="{% static "assets/bootstrap-3.3.4/js/bootstrap.min.js" %}"></script>
+
+<script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+<script src="{% static "js/index.js" %}"></script>
+<script src="{% static "assets/datatables-1.10.7/jquery.dataTables.js" %}" type="text/javascript"></script>
+<script src="{% static "assets/datatables-1.10.7/dataTables.bootstrap.js" %}" type="text/javascript"></script>
+<script src="https://magicbox.bk.tencent.com/static_api/v3/assets/bkTopology-1.2/js/bkTopology.js"></script>
+<script src="https://magicbox.bk.tencent.com/static_api/v3/components_pro/side_panel/js/slide.js"></script>
+
+
+</body>
+
+</html>

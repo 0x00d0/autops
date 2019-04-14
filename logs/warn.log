@@ -1,0 +1,20 @@
+[WARNING] [django.request] 2019-04-14 11:47:58,695 base 2137 123145545416704 Not Found: /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast
+[WARNING] [django.channels.server] 2019-04-14 11:47:58,699 runserver 2137 123145534906368 HTTP GET /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast 404 [0.01, 192.168.1.102:56772]
+[WARNING] [django.request] 2019-04-14 11:50:55,102 base 2167 123145436762112 Not Found: /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast
+[WARNING] [django.channels.server] 2019-04-14 11:50:55,104 runserver 2167 123145431506944 HTTP GET /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast 404 [0.01, 192.168.1.102:56817]
+[WARNING] [django.request] 2019-04-14 13:29:32,402 base 2369 123145523666944 Not Found: /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast
+[WARNING] [django.channels.server] 2019-04-14 13:29:32,403 runserver 2369 123145513156608 HTTP GET /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast 404 [0.01, 192.168.1.102:57075]
+[WARNING] [django.channels.server] 2019-04-14 13:29:38,402 runserver 2369 123145513156608 HTTP GET /static/asciinema/asciinema-player.js.map 404 [0.01, 192.168.1.102:57075]
+[WARNING] [django.channels.server] 2019-04-14 13:30:39,026 runserver 2369 123145513156608 HTTP GET /static/asciinema/asciinema-player.js.map 404 [0.00, 192.168.1.102:57326]
+[WARNING] [django.channels.server] 2019-04-14 13:30:56,261 runserver 2369 123145513156608 HTTP GET /static/asciinema/asciinema-player.js.map 404 [0.00, 192.168.1.102:57326]
+[WARNING] [django.channels.server] 2019-04-14 13:31:34,741 runserver 2386 123145457598464 HTTP GET /static/asciinema/asciinema-player.js.map 404 [0.01, 192.168.1.102:57551]
+[WARNING] [django.channels.server] 2019-04-14 13:31:46,216 runserver 2386 123145457598464 HTTP GET /static/asciinema/asciinema-player.js.map 404 [0.00, 192.168.1.102:57551]
+[WARNING] [django.request] 2019-04-14 13:34:24,681 base 2386 123145473363968 Not Found: /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast
+[WARNING] [django.channels.server] 2019-04-14 13:34:24,683 runserver 2386 123145457598464 HTTP GET /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast 404 [0.01, 192.168.1.102:58239]
+[WARNING] [django.channels.server] 2019-04-14 13:35:20,698 runserver 2405 123145385353216 HTTP GET /static/asciinema/asciinema-player.js.map 404 [0.01, 192.168.1.102:58466]
+[WARNING] [django.channels.server] 2019-04-14 13:37:45,314 runserver 2425 123145452924928 HTTP GET /static/asciinema/asciinema-player.js.map 404 [0.01, 192.168.1.102:59051]
+[WARNING] [django.channels.server] 2019-04-14 13:37:48,599 runserver 2425 123145452924928 HTTP GET /static/asciinema/asciinema-player.js.map 404 [0.00, 192.168.1.102:59051]
+[WARNING] [django.request] 2019-04-14 13:37:50,841 base 2425 123145468690432 Not Found: /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast
+[WARNING] [django.channels.server] 2019-04-14 13:37:50,843 runserver 2425 123145452924928 HTTP GET /auditlog/2019_04_14_11/ge0vsdy7tc5wjon9ukp268arhqz43x.cast 404 [0.01, 192.168.1.102:59051]
+[WARNING] [django.request] 2019-04-14 15:51:41,319 base 3076 123145450729472 Not Found: /favicon.ico
+[WARNING] [django.channels.server] 2019-04-14 15:51:41,322 runserver 3076 123145445474304 HTTP GET /favicon.ico 404 [0.03, 192.168.1.102:60804]
