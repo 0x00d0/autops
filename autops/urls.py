@@ -31,4 +31,5 @@ urlpatterns = [
     url(r'^assets/report/',views.report),
     url(r'^assets/(?P<hostid>[0-9]+)/$',views.asset),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$',serve, {'document_root': settings.STATIC_ROOT,}),
 ]

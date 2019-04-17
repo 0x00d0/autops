@@ -16,7 +16,9 @@
 # along with Paramiko; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA.
 
-
+import traceback
+import logging
+logger = logging.getLogger('log')
 import datetime
 import socket
 import sys
@@ -62,6 +64,10 @@ def posix_shell(chan):
                     sys.stdout.flush()
                 except socket.timeout:
                     pass
+                except Exception as e:
+                    pass
+                    #logger.error(e)
+                    #logger.error(traceback.format_exc())
             if sys.stdin in r:
                 x = sys.stdin.read(1)
 
