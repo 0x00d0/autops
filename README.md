@@ -17,6 +17,7 @@ python manage.py runserver
 
 ```
 yum -y install dmidecode
+dmidecode -s system-serial-number	# 查看sn号
 
 ```
 
