@@ -1,4 +1,4 @@
-django==1.11.1
+django==1.11.23
 channels==2.1.7
 channels-redis==2.3.3
 docker==3.7.0       # <== cmdb客户端安装
